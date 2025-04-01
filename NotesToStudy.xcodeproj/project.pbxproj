@@ -10,9 +10,22 @@
 		399084452D9CA63B008A0AD9 /* NotesToStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesToStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3990845E2D9CA79C008A0AD9 /* Exceptions for "NotesToStudy" folder in "NotesToStudy" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 399084442D9CA63B008A0AD9 /* NotesToStudy */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		399084472D9CA63B008A0AD9 /* NotesToStudy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3990845E2D9CA79C008A0AD9 /* Exceptions for "NotesToStudy" folder in "NotesToStudy" target */,
+			);
 			path = NotesToStudy;
 			sourceTree = "<group>";
 		};
