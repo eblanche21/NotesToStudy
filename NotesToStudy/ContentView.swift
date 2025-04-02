@@ -32,18 +32,29 @@ struct NoteNameView: View {
             Form {
                 TextField("Note Title", text: $noteTitle)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.black)
             }
             .navigationTitle("Name Your Note")
             .navigationBarItems(
                 leading: Button("Cancel") {
                     isPresented = false
-                },
+                }
+                .font(.system(size: 16, weight: .regular))
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 1, x: 0, y: 0),
                 trailing: Button("Save") {
                     onSave()
                     isPresented = false
                 }
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 1, x: 0, y: 0)
                 .disabled(noteTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             )
+            .toolbarBackground(Color.red, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
         }
     }
 }
@@ -134,9 +145,15 @@ struct ContentView: View {
                             }
                         } label: {
                             Image(systemName: "plus")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.white)
+                                .shadow(color: .black, radius: 1, x: 0, y: 0)
                         }
                     }
                 }
+                .toolbarBackground(Color.red, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbarColorScheme(.dark, for: .navigationBar)
             }
             .tabItem {
                 Label("Notes", systemImage: "note.text")
@@ -148,6 +165,7 @@ struct ContentView: View {
                 VStack {
                     if !notes.isEmpty {
                         Toggle("Show All Flashcards", isOn: $showingAllFlashcards)
+                            .font(.system(size: 15, weight: .regular))
                             .padding()
                     }
                     
@@ -164,9 +182,15 @@ struct ContentView: View {
                             showingFlashcardEdit = true
                         }) {
                             Image(systemName: "plus")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.white)
+                                .shadow(color: .black, radius: 1, x: 0, y: 0)
                         }
                     }
                 }
+                .toolbarBackground(Color.red, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbarColorScheme(.dark, for: .navigationBar)
             }
             .tabItem {
                 Label("Flashcards", systemImage: "rectangle.stack")
@@ -178,13 +202,14 @@ struct ContentView: View {
                 VStack {
                     if filteredFlashcards.isEmpty {
                         Text("No flashcards to study")
+                            .font(.system(size: 16, weight: .light))
                             .foregroundColor(.gray)
                     } else {
                         Button(action: {
                             showingStudyView = true
                         }) {
                             Text("Start Studying")
-                                .font(.title2)
+                                .font(.system(size: 22, weight: .medium))
                                 .padding()
                                 .background(Color.blue)
                                 .foregroundColor(.white)
@@ -193,11 +218,29 @@ struct ContentView: View {
                     }
                 }
                 .navigationTitle("Study")
+                .toolbarBackground(Color.red, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbarColorScheme(.dark, for: .navigationBar)
             }
             .tabItem {
                 Label("Study", systemImage: "brain")
             }
             .tag(2)
+        }
+        .tint(.white)
+        .onAppear {
+            // Set the tab bar appearance
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .red
+            
+            // Customize the unselected item appearance
+            appearance.stackedLayoutAppearance.normal.iconColor = .white.withAlphaComponent(0.5)
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white.withAlphaComponent(0.5)]
+            
+            // Use this appearance for both normal and scrolling states
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
         }
         .sheet(isPresented: $showingCamera) {
             CameraView(image: $selectedImage)
@@ -334,24 +377,26 @@ struct NoteRow: View {
                 .frame(width: 60, height: 60)
                 .cornerRadius(8)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 if isEditingTitle {
                     TextField("Note Title", text: $editedTitle)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .font(.headline)
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.black)
                         .onSubmit {
                             updateTitle()
                         }
                 } else {
                     Text(note.title)
-                        .font(.headline)
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.black)
                         .onTapGesture {
                             editedTitle = note.title
                             isEditingTitle = true
                         }
                 }
                 Text(note.date.formatted())
-                    .font(.subheadline)
+                    .font(.system(size: 13, weight: .light))
                     .foregroundColor(.gray)
             }
         }
@@ -374,9 +419,10 @@ struct FlashcardRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(flashcard.question)
-                .font(.headline)
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(.black)
             Text(flashcard.answer)
-                .font(.subheadline)
+                .font(.system(size: 16, weight: .light))
                 .foregroundColor(.gray)
         }
         .padding(.vertical, 4)
